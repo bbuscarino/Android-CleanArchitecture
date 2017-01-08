@@ -1,26 +1,25 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
 
 android {
   def globalConfiguration = rootProject.extensions.getByName("ext")
 
-  compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
-  buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
+  compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
+  buildToolsVersion globalConfiguration["androidBuildToolsVersion"]
 
   defaultConfig {
-    minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
-    targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
+    minSdkVersion globalConfiguration["androidMinSdkVersion"]
+    targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
 
-    applicationId globalConfiguration.getAt("androidApplicationId")
-    versionCode globalConfiguration.getAt("androidVersionCode")
-    versionName globalConfiguration.getAt("androidVersionName")
-    testInstrumentationRunner globalConfiguration.getAt("testInstrumentationRunner")
-    testApplicationId globalConfiguration.getAt("testApplicationId")
+    applicationId globalConfiguration["androidApplicationId"]
+    versionCode globalConfiguration["androidVersionCode"]
+    versionName globalConfiguration["androidVersionName"]
+    testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
+    testApplicationId globalConfiguration["testApplicationId"]
   }
 
   compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_7
-    targetCompatibility JavaVersion.VERSION_1_7
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
   }
 
   packagingOptions {
@@ -65,7 +64,8 @@ dependencies {
   compile project(':domain')
   compile project(':data')
 
-  apt presentationDependencies.daggerCompiler
+  annotationProcessor presentationDependencies.daggerCompiler
+  annotationProcessor presentationDependencies.butterKnife
   compile presentationDependencies.dagger
   compile presentationDependencies.butterKnife
   compile presentationDependencies.recyclerView
@@ -73,6 +73,7 @@ dependencies {
   compile presentationDependencies.rxAndroid
   provided presentationDependencies.javaxAnnotation
 
+  androidTestAnnotationProcessor presentationDependencies.butterKnife
   androidTestCompile presentationTestDependencies.mockito
   androidTestCompile presentationTestDependencies.dexmaker
   androidTestCompile presentationTestDependencies.dexmakerMockito

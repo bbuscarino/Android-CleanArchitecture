@@ -39,7 +39,9 @@ android {
     disable 'IconDensities'             //For testing purpose. This is safe to remove.
     disable 'IconMissingDensityFolder'  //For testing purpose. This is safe to remove.
   }
-
+  testOptions {
+    execution 'ANDROID_TEST_ORCHESTRATOR'
+  }
   signingConfigs {
     debug {
       storeFile file('../buildsystem/debug.keystore')
@@ -79,7 +81,9 @@ dependencies {
   androidTestCompile presentationTestDependencies.dexmaker
   androidTestCompile presentationTestDependencies.dexmakerMockito
   androidTestCompile presentationTestDependencies.espresso
-  androidTestCompile presentationTestDependencies.testingSupportLib
+  androidTestCompile presentationTestDependencies.testRules
+  androidTestImplementation presentationTestDependencies.testRunner
+  androidTestUtil presentationTestDependencies.testOrchestrator
 
   //Development
   compile developmentDependencies.leakCanary

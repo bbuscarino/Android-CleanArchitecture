@@ -74,6 +74,7 @@ dependencies {
   provided presentationDependencies.javaxAnnotation
 
   androidTestAnnotationProcessor presentationDependencies.butterKnife
+  testAnnotationProcessor presentationDependencies.butterKnife
   androidTestCompile presentationTestDependencies.mockito
   androidTestCompile presentationTestDependencies.dexmaker
   androidTestCompile presentationTestDependencies.dexmakerMockito

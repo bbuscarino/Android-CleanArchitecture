@@ -119,11 +119,7 @@ public class AutoLoadImageView extends ImageView {
    * @param bitmap The image to load.
    */
   private void loadBitmap(final Bitmap bitmap) {
-    ((Activity) getContext()).runOnUiThread(new Runnable() {
-      @Override public void run() {
-        AutoLoadImageView.this.setImageBitmap(bitmap);
-      }
-    });
+    ((Activity) getContext()).runOnUiThread(() -> AutoLoadImageView.this.setImageBitmap(bitmap));
   }
 
   /**
@@ -131,12 +127,8 @@ public class AutoLoadImageView extends ImageView {
    */
   private void loadImagePlaceHolder() {
     if (this.imagePlaceHolderResId != -1) {
-      ((Activity) getContext()).runOnUiThread(new Runnable() {
-        @Override public void run() {
-          AutoLoadImageView.this.setImageResource(
-              AutoLoadImageView.this.imagePlaceHolderResId);
-        }
-      });
+      ((Activity) getContext()).runOnUiThread(() -> AutoLoadImageView.this.setImageResource(
+          AutoLoadImageView.this.imagePlaceHolderResId));
     }
   }
 

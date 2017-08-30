@@ -77,7 +77,6 @@ dependencies {
 
   androidTestAnnotationProcessor presentationDependencies.butterKnife
   testAnnotationProcessor presentationDependencies.butterKnife
-  androidTestCompile presentationTestDependencies.mockito
   androidTestCompile presentationTestDependencies.dexmaker
   androidTestCompile presentationTestDependencies.dexmakerMockito
   androidTestCompile presentationTestDependencies.espresso

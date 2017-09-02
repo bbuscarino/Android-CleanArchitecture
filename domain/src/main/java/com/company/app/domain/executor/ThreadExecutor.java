@@ -15,13 +15,11 @@
  */
 package com.company.app.domain.executor;
 
-import com.company.app.domain.interactor.UseCase;
-
 import java.util.concurrent.Executor;
 
 /**
  * Executor implementation can be based on different frameworks or techniques of asynchronous
  * execution, but every implementation will execute the
- * {@link UseCase} out of the UI thread.
+ * use case out of the UI thread.
  */
 public interface ThreadExecutor extends Executor {}

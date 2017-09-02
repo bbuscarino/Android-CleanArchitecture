@@ -20,14 +20,11 @@ import com.company.app.domain.executor.ThreadExecutor;
 import com.company.app.domain.User;
 import com.company.app.domain.repository.UserRepository;
 import com.fernandocejas.arrow.checks.Preconditions;
-import io.reactivex.Observable;
+import io.reactivex.Single;
+
 import javax.inject.Inject;
 
-/**
- * This class is an implementation of {@link UseCase} that represents a use case for
- * retrieving data related to an specific {@link User}.
- */
-public class GetUserDetails extends UseCase<User, GetUserDetails.Params> {
+public class GetUserDetails extends SingleUseCase<User, GetUserDetails.Params> {
 
   private final UserRepository userRepository;
 
@@ -38,7 +35,7 @@ public class GetUserDetails extends UseCase<User, GetUserDetails.Params> {
     this.userRepository = userRepository;
   }
 
-  @Override Observable<User> buildUseCaseObservable(Params params) {
+  @Override Single<User> buildUseCaseSingle(Params params) {
     Preconditions.checkNotNull(params);
     return this.userRepository.user(params.userId);
   }

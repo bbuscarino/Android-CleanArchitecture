@@ -25,7 +25,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -52,7 +52,7 @@ public class GetUserDetailsTest {
 
   @Test
   public void testGetUserDetailsUseCaseObservableHappyCase() {
-    getUserDetails.buildUseCaseObservable(Params.forUser(USER_ID));
+    getUserDetails.buildUseCaseSingle(Params.forUser(USER_ID));
 
     verify(mockUserRepository).user(USER_ID);
     verifyNoMoreInteractions(mockUserRepository);
@@ -63,6 +63,6 @@ public class GetUserDetailsTest {
   @Test
   public void testShouldFailWhenNoOrEmptyParameters() {
     expectedException.expect(NullPointerException.class);
-    getUserDetails.buildUseCaseObservable(null);
+    getUserDetails.buildUseCaseSingle(null);
   }
 }

@@ -18,24 +18,25 @@ package com.company.app.domain.interactor;
 import com.company.app.domain.executor.PostExecutionThread;
 import com.company.app.domain.executor.ThreadExecutor;
 
-import io.reactivex.Observable;
-import io.reactivex.observers.DisposableObserver;
+import io.reactivex.Flowable;
 import io.reactivex.schedulers.TestScheduler;
+import io.reactivex.subscribers.DisposableSubscriber;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UseCaseTest {
+public class FlowableUseCaseTest {
 
-  private UseCaseTestClass useCase;
+  private FlowableUseCaseTestClass useCase;
 
   private TestDisposableObserver<Object> testObserver;
 
@@ -46,7 +47,7 @@ public class UseCaseTest {
 
   @Before
   public void setUp() {
-    this.useCase = new UseCaseTestClass(mockThreadExecutor, mockPostExecutionThread);
+    this.useCase = new FlowableUseCaseTestClass(mockThreadExecutor, mockPostExecutionThread);
     this.testObserver = new TestDisposableObserver<>();
     given(mockPostExecutionThread.getScheduler()).willReturn(new TestScheduler());
   }
@@ -72,23 +73,24 @@ public class UseCaseTest {
     useCase.execute(null, Params.EMPTY);
   }
 
-  private static class UseCaseTestClass extends UseCase<Object, Params> {
+  private static class FlowableUseCaseTestClass extends FlowableUseCase<Object, Params> {
 
-    UseCaseTestClass(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
+    FlowableUseCaseTestClass(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
       super(threadExecutor, postExecutionThread);
     }
 
-    @Override Observable<Object> buildUseCaseObservable(Params params) {
-      return Observable.empty();
+    @Override
+    Flowable<Object> buildUseCaseFlowable(Params params) {
+      return Flowable.empty();
     }
 
     @Override
-    public void execute(DisposableObserver<Object> observer, Params params) {
+    public void execute(DisposableSubscriber<Object> observer, Params params) {
       super.execute(observer, params);
     }
   }
 
-  private static class TestDisposableObserver<T> extends DisposableObserver<T> {
+  private static class TestDisposableObserver<T> extends DisposableSubscriber<T> {
     private int valuesCount = 0;
 
     @Override public void onNext(T value) {

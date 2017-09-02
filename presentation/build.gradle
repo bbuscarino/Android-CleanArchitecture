@@ -73,6 +73,7 @@ dependencies {
   compile presentationDependencies.recyclerView
   compile presentationDependencies.rxJava
   compile presentationDependencies.rxAndroid
+  compile presentationDependencies.picasso
   provided presentationDependencies.javaxAnnotation
 
   androidTestAnnotationProcessor presentationDependencies.butterKnife

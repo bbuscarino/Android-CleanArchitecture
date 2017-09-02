@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.Bind;
@@ -17,12 +18,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import com.company.app.presentation.presenter.UserDetailsPresenter;
-import com.company.app.presentation.view.component.AutoLoadImageView;
 import com.fernandocejas.android10.sample.presentation.R;
 import com.company.app.presentation.internal.di.components.UserComponent;
 import com.company.app.presentation.model.UserModel;
 import com.company.app.presentation.view.UserDetailsView;
 import com.fernandocejas.arrow.checks.Preconditions;
+import com.squareup.picasso.Picasso;
+
 import javax.inject.Inject;
 
 /**
@@ -35,7 +37,7 @@ public class UserDetailsFragment extends BaseFragment implements UserDetailsView
   UserDetailsPresenter userDetailsPresenter;
 
   @Bind(R.id.iv_cover)
-  AutoLoadImageView iv_cover;
+  ImageView iv_cover;
   @Bind(R.id.tv_fullname) TextView tv_fullname;
   @Bind(R.id.tv_email) TextView tv_email;
   @Bind(R.id.tv_followers) TextView tv_followers;
@@ -98,7 +100,7 @@ public class UserDetailsFragment extends BaseFragment implements UserDetailsView
 
   @Override public void renderUser(UserModel user) {
     if (user != null) {
-      this.iv_cover.setImageUrl(user.getCoverUrl());
+      Picasso.with(context()).load(user.getCoverUrl()).into(iv_cover);
       this.tv_fullname.setText(user.getFullName());
       this.tv_email.setText(user.getEmail());
       this.tv_followers.setText(String.valueOf(user.getFollowers()));

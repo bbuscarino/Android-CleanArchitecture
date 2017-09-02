@@ -166,11 +166,9 @@ public class UserListFragment extends BaseFragment implements UserListView {
   }
 
   private UsersAdapter.OnItemClickListener onItemClickListener =
-      new UsersAdapter.OnItemClickListener() {
-        @Override public void onUserItemClicked(UserModel userModel) {
-          if (UserListFragment.this.userListPresenter != null && userModel != null) {
-            UserListFragment.this.userListPresenter.onUserClicked(userModel);
-          }
-        }
-      };
+          userModel -> {
+            if (UserListFragment.this.userListPresenter != null && userModel != null) {
+              UserListFragment.this.userListPresenter.onUserClicked(userModel);
+            }
+          };
 }

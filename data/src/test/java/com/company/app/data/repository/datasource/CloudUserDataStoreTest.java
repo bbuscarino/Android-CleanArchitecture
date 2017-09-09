@@ -17,7 +17,6 @@ package com.company.app.data.repository.datasource;
 
 import com.company.app.data.cache.UserCache;
 import com.company.app.data.entity.UserEntity;
-import com.company.app.data.net.RestApi;
 
 import io.reactivex.Observable;
 import org.junit.Before;

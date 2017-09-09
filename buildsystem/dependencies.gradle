@@ -22,7 +22,8 @@ ext {
   javaxAnnotationVersion = '1.0'
   javaxInjectVersion = '1'
   gsonVersion = '2.3'
-  okHttpVersion = '2.5.0'
+  okHttpVersion = '3.8.1'
+  retrofitVersion = '2.3.0'
   androidAnnotationsVersion = '25.4.0'
   arrowVersion = '1.0.0'
   picassoVersion = '2.5.2'
@@ -46,6 +47,7 @@ ext {
       dagger:             "com.google.dagger:dagger:${daggerVersion}",
       butterKnife:        "com.jakewharton:butterknife:${butterKnifeVersion}",
       recyclerView:       "com.android.support:recyclerview-v7:${recyclerViewVersion}",
+
       rxJava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
       rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
       javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
@@ -77,7 +79,8 @@ ext {
   dataDependencies = [
       daggerCompiler:     "com.google.dagger:dagger-compiler:${daggerVersion}",
       dagger:             "com.google.dagger:dagger:${daggerVersion}",
-      okHttp:             "com.squareup.okhttp:okhttp:${okHttpVersion}",
+      okHttp:             "com.squareup.okhttp3:okhttp:${okHttpVersion}",
+      retrofit:           "com.squareup.retrofit2:retrofit:${retrofitVersion}",
       gson:               "com.google.code.gson:gson:${gsonVersion}",
       rxJava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
       rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",

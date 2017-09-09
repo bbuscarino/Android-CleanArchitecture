@@ -16,8 +16,8 @@
 package com.company.app.data.repository.datasource;
 
 import com.company.app.data.entity.UserEntity;
-import com.company.app.data.net.RestApi;
 import com.company.app.data.cache.UserCache;
+import com.company.app.data.net.GithubService;
 
 import io.reactivex.Observable;
 import java.util.List;
@@ -27,25 +27,25 @@ import java.util.List;
  */
 class CloudUserDataStore implements UserDataStore {
 
-  private final RestApi restApi;
+  private final GithubService githubService;
   private final UserCache userCache;
 
   /**
    * Construct a {@link UserDataStore} based on connections to the api (Cloud).
    *
-   * @param restApi The {@link RestApi} implementation to use.
+   * @param githubService The {@link GithubService} implementation to use.
    * @param userCache A {@link UserCache} to cache data retrieved from the api.
    */
-  CloudUserDataStore(RestApi restApi, UserCache userCache) {
-    this.restApi = restApi;
+  CloudUserDataStore(GithubService githubService, UserCache userCache) {
+    this.githubService = githubService;
     this.userCache = userCache;
   }
 
   @Override public Observable<List<UserEntity>> userEntityList() {
-    return this.restApi.userEntityList();
+    return this.githubService.userEntityList();
   }
 
   @Override public Observable<UserEntity> userEntityDetails(final int userId) {
-    return this.restApi.userEntityById(userId).doOnNext(CloudUserDataStore.this.userCache::put);
+    return this.githubService.userEntityById(userId).doOnNext(CloudUserDataStore.this.userCache::put);
   }
 }

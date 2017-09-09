@@ -15,7 +15,10 @@
  */
 package com.company.app.presentation.internal.di.modules;
 
+import com.company.app.data.net.GithubService;
+
 import dagger.Module;
+import dagger.Provides;
 
 /**
  * Dagger module that provides user related collaborators.
@@ -24,4 +27,9 @@ import dagger.Module;
 public class UserModule {
 
   public UserModule() {}
+
+  @Provides
+  public GithubService provideGithubService(){
+    return new Retr
+  }
 }

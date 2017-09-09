@@ -18,10 +18,9 @@ package com.company.app.data.repository.datasource;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.company.app.data.net.RestApi;
 import com.company.app.data.cache.UserCache;
 import com.company.app.data.entity.mapper.UserEntityJsonMapper;
-import com.company.app.data.net.RestApiImpl;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 

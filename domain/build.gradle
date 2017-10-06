@@ -1,3 +1,7 @@
+plugins {
+    id "net.ltgt.apt-idea" version "0.12"
+}
+
 apply plugin: 'java'
 
 //noinspection GroovyUnusedAssignment
@@ -5,27 +9,23 @@ sourceCompatibility = 1.8
 //noinspection GroovyUnusedAssignment
 targetCompatibility = 1.8
 
-configurations {
-  provided
-}
-
-sourceSets {
-  main {
-    compileClasspath += configurations.provided
-  }
-}
-
 dependencies {
-  def domainDependencies = rootProject.ext.domainDependencies
-  def domainTestDependencies = rootProject.ext.domainTestDependencies
+    def domainDependencies = rootProject.ext.domainDependencies
+    def domainTestDependencies = rootProject.ext.domainTestDependencies
 
-  provided domainDependencies.javaxAnnotation
+    compileOnly domainDependencies.javaxAnnotation
 
-  compile domainDependencies.javaxInject
-  compile domainDependencies.rxJava
-  compile domainDependencies.arrow
 
-  testCompile domainTestDependencies.junit
-  testCompile domainTestDependencies.mockito
-  testCompile domainTestDependencies.assertj
+
+    compile domainDependencies.javaxInject
+    compile domainDependencies.rxJava
+    compile domainDependencies.arrow
+
+    compileOnly domainDependencies.immutablesValueAnnotations
+    apt domainDependencies.immutablesValue
+    compileOnly domainDependencies.immutablesBuilder
+
+    testCompile domainTestDependencies.junit
+    testCompile domainTestDependencies.mockito
+    testCompile domainTestDependencies.assertj
 }

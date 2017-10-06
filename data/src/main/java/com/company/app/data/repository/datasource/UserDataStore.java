@@ -17,7 +17,8 @@ package com.company.app.data.repository.datasource;
 
 import com.company.app.data.entity.UserEntity;
 
-import io.reactivex.Observable;
+import io.reactivex.Single;
+
 import java.util.List;
 
 /**
@@ -25,14 +26,14 @@ import java.util.List;
  */
 public interface UserDataStore {
   /**
-   * Get an {@link Observable} which will emit a List of {@link UserEntity}.
+   * Get an {@link Single} which will emit a List of {@link UserEntity}.
    */
-  Observable<List<UserEntity>> userEntityList();
+  Single<List<UserEntity>> userEntityList();
 
   /**
-   * Get an {@link Observable} which will emit a {@link UserEntity} by its id.
+   * Get an {@link Single} which will emit a {@link UserEntity} by its id.
    *
    * @param userId The id to retrieve user data.
    */
-  Observable<UserEntity> userEntityDetails(final int userId);
+  Single<UserEntity> userEntityDetails(final int userId);
 }

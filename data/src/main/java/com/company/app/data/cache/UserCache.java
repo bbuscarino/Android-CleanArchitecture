@@ -17,18 +17,18 @@ package com.company.app.data.cache;
 
 import com.company.app.data.entity.UserEntity;
 
-import io.reactivex.Observable;
+import io.reactivex.Single;
 
 /**
  * An interface representing a user Cache.
  */
 public interface UserCache {
   /**
-   * Gets an {@link Observable} which will emit a {@link UserEntity}.
+   * Gets an {@link Single} which will emit a {@link UserEntity}.
    *
    * @param userId The user id to retrieve data.
    */
-  Observable<UserEntity> get(final int userId);
+  Single<UserEntity> get(final int userId);
 
   /**
    * Puts and element into the cache.
@@ -38,7 +38,7 @@ public interface UserCache {
   void put(UserEntity userEntity);
 
   /**
-   * Checks if an element (User) exists in the cache.
+   * Checks if an element (OldUser) exists in the cache.
    *
    * @param userId The id used to look for inside the cache.
    * @return true if the element is cached, otherwise false.

@@ -8,7 +8,7 @@ allprojects {
 
 ext {
     //Android
-    androidBuildToolsVersion = "26.0.1"
+    androidBuildToolsVersion = "26.0.2"
     androidMinSdkVersion = 19
     androidTargetSdkVersion = 26
     androidCompileSdkVersion = 26
@@ -25,7 +25,7 @@ ext {
     okHttpVersion = '3.8.1'
     retrofitVersion = '2.3.0'
     androidAnnotationsVersion = '25.4.0'
-    arrowVersion = '1.0.0'
+    guavaVersion = '23.1-android'
     picassoVersion = '2.5.2'
     immutablesVersion = '2.5.5'
 
@@ -41,7 +41,7 @@ ext {
     testRulesVersion = '1.0.1'
 
     //Development
-    leakCanaryVersion = '1.5.2'
+    leakCanaryVersion = '1.5.1'
 
     presentationDependencies = [
             daggerCompiler : "com.google.dagger:dagger-compiler:${daggerVersion}",
@@ -72,7 +72,7 @@ ext {
             javaxAnnotation           : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             javaxInject               : "javax.inject:javax.inject:${javaxInjectVersion}",
             rxJava                    : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
-            arrow                     : "com.fernandocejas:arrow:${arrowVersion}",
+            guava                     : "com.google.guava:guava:${guavaVersion}",
             immutablesValue           : "org.immutables:value:${immutablesVersion}",
             immutablesValueAnnotations: "org.immutables:value:${immutablesVersion}:annotations",
             immutablesBuilder         : "org.immutables:builder:${immutablesVersion}",
@@ -89,6 +89,7 @@ ext {
             dagger                    : "com.google.dagger:dagger:${daggerVersion}",
             okHttp                    : "com.squareup.okhttp3:okhttp:${okHttpVersion}",
             retrofit                  : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            retrofitGson              : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
             gson                      : "com.google.code.gson:gson:${gsonVersion}",
             rxJava                    : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
             rxAndroid                 : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
@@ -102,10 +103,11 @@ ext {
     ]
 
     dataTestDependencies = [
-            junit      : "junit:junit:${jUnitVersion}",
-            assertj    : "org.assertj:assertj-core:${assertJVersion}",
-            mockito    : "org.mockito:mockito-core:${mockitoVersion}",
-            robolectric: "org.robolectric:robolectric:${robolectricVersion}",
+            junit       : "junit:junit:${jUnitVersion}",
+            assertj     : "org.assertj:assertj-core:${assertJVersion}",
+            mockito     : "org.mockito:mockito-core:${mockitoVersion}",
+            retrofitMock: "com.squareup.retrofit2:retrofit-mock:${retrofitVersion}",
+            robolectric : "org.robolectric:robolectric:${robolectricVersion}",
     ]
 
     developmentDependencies = [

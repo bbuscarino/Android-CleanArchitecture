@@ -1,8 +1,3 @@
-/**
- * Copyright (C) 2014 android10.org. All rights reserved.
- *
- * @author Fernando Cejas (the android10 coder)
- */
 package com.company.app.presentation.view.activity;
 
 import android.content.Context;
@@ -23,35 +18,38 @@ import com.company.app.presentation.internal.di.components.UserComponent;
 public class UserListActivity extends BaseActivity implements HasComponent<UserComponent>,
         UserListFragment.UserListListener {
 
-  public static Intent getCallingIntent(Context context) {
-    return new Intent(context, UserListActivity.class);
-  }
-
-  private UserComponent userComponent;
-
-  @Override protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-    setContentView(R.layout.activity_layout);
-
-    this.initializeInjector();
-    if (savedInstanceState == null) {
-      addFragment(R.id.fragmentContainer, new UserListFragment());
+    public static Intent getCallingIntent(Context context) {
+        return new Intent(context, UserListActivity.class);
     }
-  }
 
-  private void initializeInjector() {
-    this.userComponent = DaggerUserComponent.builder()
-        .applicationComponent(getApplicationComponent())
-        .activityModule(getActivityModule())
-        .build();
-  }
+    private UserComponent userComponent;
 
-  @Override public UserComponent getComponent() {
-    return userComponent;
-  }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        setContentView(R.layout.activity_layout);
 
-  @Override public void onUserClicked(UserModel userModel) {
-    this.navigator.navigateToUserDetails(this, userModel.getUserId());
-  }
+        this.initializeInjector();
+        if (savedInstanceState == null) {
+            addFragment(R.id.fragmentContainer, new UserListFragment());
+        }
+    }
+
+    private void initializeInjector() {
+        this.userComponent = DaggerUserComponent.builder()
+                .applicationComponent(getApplicationComponent())
+                .activityModule(getActivityModule())
+                .build();
+    }
+
+    @Override
+    public UserComponent getComponent() {
+        return userComponent;
+    }
+
+    @Override
+    public void onUserClicked(UserModel userModel) {
+        this.navigator.navigateToUserDetails(this, userModel.userId());
+    }
 }

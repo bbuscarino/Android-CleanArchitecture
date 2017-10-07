@@ -1,18 +1,3 @@
-/**
- * Copyright (C) 2015 Fernando Cejas Open Source Project
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.company.app.data.cache.serializer;
 
 import com.company.app.data.entity.GsonAdaptersAbstractUserEntity;
@@ -24,9 +9,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class SerializerTest {
@@ -55,17 +39,41 @@ public class SerializerTest {
         final String jsonString = serializer.serialize(userEntityOne, UserEntity.class);
         final UserEntity userEntityTwo = serializer.deserialize(jsonString, UserEntity.class);
 
-        assertThat(userEntityOne.userId(), is(userEntityTwo.userId()));
-        assertThat(userEntityOne.fullname(), is(equalTo(userEntityTwo.fullname())));
-        assertThat(userEntityOne.followers(), is(userEntityTwo.followers()));
+        assertThat(userEntityOne.fullName().isPresent()).isTrue();
+        assertThat(userEntityOne.followers().isPresent()).isTrue();
+        assertThat(userEntityOne.coverUrl().isPresent()).isTrue();
+        assertThat(userEntityOne.description().isPresent()).isTrue();
+        assertThat(userEntityOne.email().isPresent()).isTrue();
+
+        assertThat(userEntityTwo.fullName().isPresent()).isTrue();
+        assertThat(userEntityTwo.followers().isPresent()).isTrue();
+        assertThat(userEntityTwo.coverUrl().isPresent()).isTrue();
+        assertThat(userEntityTwo.description().isPresent()).isTrue();
+        assertThat(userEntityTwo.email().isPresent()).isTrue();
+
+        assertThat(userEntityTwo.userId()).isEqualTo(userEntityOne.userId());
+        assertThat(userEntityTwo.fullName().get()).isEqualToNormalizingWhitespace(userEntityOne.fullName().get());
+        assertThat(userEntityTwo.coverUrl().get()).isEqualToNormalizingWhitespace(userEntityOne.coverUrl().get());
+        assertThat(userEntityTwo.description().get()).isEqualToNormalizingWhitespace(userEntityOne.description().get());
+        assertThat(userEntityTwo.email().get()).isEqualToNormalizingWhitespace(userEntityOne.email().get());
     }
 
     @Test
     public void testDesearializeHappyCase() {
         final UserEntity userEntity = serializer.deserialize(JSON_RESPONSE, UserEntity.class);
 
-        assertThat(userEntity.userId(), is(1));
-        assertThat(userEntity.fullname(), is("Simon Hill"));
-        assertThat(userEntity.followers(), is(7484));
+        assertThat(userEntity.fullName().isPresent()).isTrue();
+        assertThat(userEntity.followers().isPresent()).isTrue();
+        assertThat(userEntity.coverUrl().isPresent()).isTrue();
+        assertThat(userEntity.description().isPresent()).isTrue();
+        assertThat(userEntity.email().isPresent()).isTrue();
+
+
+        assertThat(userEntity.userId()).isEqualTo(1);
+        assertThat(userEntity.fullName().get()).isEqualToNormalizingWhitespace("Simon Hill");
+        assertThat(userEntity.followers().get()).isEqualTo(7484);
+        assertThat(userEntity.coverUrl().get()).isEqualToNormalizingWhitespace("http://www.android10.org/myapi/cover_1.jpg");
+        assertThat(userEntity.description().get()).isNotEmpty();
+        assertThat(userEntity.email().get()).isEqualToNormalizingWhitespace("jcooper@babbleset.edu");
     }
 }

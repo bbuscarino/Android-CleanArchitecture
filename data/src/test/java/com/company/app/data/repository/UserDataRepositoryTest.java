@@ -67,7 +67,7 @@ public class UserDataRepositoryTest {
                 .setDescription(FAKE_USER_DESCRIPTION)
                 .setEmail(FAKE_USER_EMAIL)
                 .setFollowers(FAKE_USER_FOLLOWERS)
-                .setFullname(FAKE_USER_FULL_NAME)
+                .setFullName(FAKE_USER_FULL_NAME)
                 .create();
     }
 

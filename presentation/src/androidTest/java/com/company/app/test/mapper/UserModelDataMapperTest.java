@@ -15,9 +15,8 @@
  */
 package com.company.app.test.mapper;
 
-import com.company.app.domain.User;
 import com.company.app.presentation.mapper.UserModelDataMapper;
-import com.company.app.presentation.model.UserModel;
+import com.company.app.presentation.model.OldUserModel;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -41,31 +40,31 @@ public class UserModelDataMapperTest extends TestCase {
   }
 
   public void testTransformUser() {
-    User user = createFakeUser();
-    UserModel userModel = userModelDataMapper.transform(user);
+    OldUser user = createFakeUser();
+    OldUserModel userModel = userModelDataMapper.transform(user);
 
-    assertThat(userModel, is(instanceOf(UserModel.class)));
+    assertThat(userModel, is(instanceOf(OldUserModel.class)));
     assertThat(userModel.getUserId(), is(FAKE_USER_ID));
     assertThat(userModel.getFullName(), is(FAKE_FULL_NAME));
   }
 
   public void testTransformUserCollection() {
-    User mockUserOne = mock(User.class);
-    User mockUserTwo = mock(User.class);
+    OldUser mockUserOne = mock(OldUser.class);
+    OldUser mockUserTwo = mock(OldUser.class);
 
-    List<User> userList = new ArrayList<User>(5);
+    List<OldUser> userList = new ArrayList<OldUser>(5);
     userList.add(mockUserOne);
     userList.add(mockUserTwo);
 
-    Collection<UserModel> userModelList = userModelDataMapper.transform(userList);
+    Collection<OldUserModel> userModelList = userModelDataMapper.transform(userList);
 
-    assertThat(userModelList.toArray()[0], is(instanceOf(UserModel.class)));
-    assertThat(userModelList.toArray()[1], is(instanceOf(UserModel.class)));
+    assertThat(userModelList.toArray()[0], is(instanceOf(OldUserModel.class)));
+    assertThat(userModelList.toArray()[1], is(instanceOf(OldUserModel.class)));
     assertThat(userModelList.size(), is(2));
   }
 
-  private User createFakeUser() {
-    User user = new User(FAKE_USER_ID);
+  private OldUser createFakeUser() {
+    OldUser user = new OldUser(FAKE_USER_ID);
     user.setFullName(FAKE_FULL_NAME);
 
     return user;

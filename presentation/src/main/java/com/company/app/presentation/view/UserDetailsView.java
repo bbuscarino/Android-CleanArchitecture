@@ -1,7 +1,3 @@
-/**
- * Copyright (C) 2014 android10.org. All rights reserved.
- * @author Fernando Cejas (the android10 coder)
- */
 package com.company.app.presentation.view;
 
 import com.company.app.presentation.model.UserModel;
@@ -11,10 +7,10 @@ import com.company.app.presentation.model.UserModel;
  * In this case is used as a view representing a user profile.
  */
 public interface UserDetailsView extends LoadDataView {
-  /**
-   * Render a user in the UI.
-   *
-   * @param user The {@link UserModel} that will be shown.
-   */
-  void renderUser(UserModel user);
+    /**
+     * Render a user in the UI.
+     *
+     * @param user The {@link UserModel} that will be shown.
+     */
+    void renderUser(UserModel user);
 }

@@ -57,7 +57,7 @@ public class UserDetailsActivityTest {
 
     String actualTitle = activity.getTitle().toString().trim();
 
-    assertThat(actualTitle, is("User Details"));
+    assertThat(actualTitle, is("OldUser Details"));
   }
 
   @Test

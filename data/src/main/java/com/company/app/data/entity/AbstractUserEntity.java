@@ -1,6 +1,7 @@
 package com.company.app.data.entity;
 
 
+import com.google.common.base.Optional;
 import com.google.gson.annotations.SerializedName;
 
 import org.immutables.gson.Gson;
@@ -14,17 +15,17 @@ public interface AbstractUserEntity {
     int userId();
 
     @SerializedName("cover_url")
-    String coverUrl();
+    Optional<String> coverUrl();
 
     @SerializedName("full_name")
-    String fullname();
+    Optional<String> fullName();
 
     @SerializedName("description")
-    String description();
+    Optional<String> description();
 
     @SerializedName("followers")
-    int followers();
+    Optional<Integer> followers();
 
     @SerializedName("email")
-    String email();
+    Optional<String> email();
 }

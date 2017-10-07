@@ -15,11 +15,9 @@ dependencies {
 
     compileOnly domainDependencies.javaxAnnotation
 
-
-
     compile domainDependencies.javaxInject
     compile domainDependencies.rxJava
-    compile domainDependencies.arrow
+    compile domainDependencies.guava
 
     compileOnly domainDependencies.immutablesValueAnnotations
     apt domainDependencies.immutablesValue

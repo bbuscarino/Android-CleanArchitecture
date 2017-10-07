@@ -19,7 +19,7 @@ import com.company.app.domain.User;
 import com.company.app.domain.executor.PostExecutionThread;
 import com.company.app.domain.executor.ThreadExecutor;
 import com.company.app.domain.repository.UserRepository;
-import com.fernandocejas.arrow.checks.Preconditions;
+import com.google.common.base.Preconditions;
 
 import io.reactivex.Single;
 

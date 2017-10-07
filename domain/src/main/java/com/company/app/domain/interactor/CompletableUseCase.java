@@ -17,7 +17,7 @@ package com.company.app.domain.interactor;
 
 import com.company.app.domain.executor.PostExecutionThread;
 import com.company.app.domain.executor.ThreadExecutor;
-import com.fernandocejas.arrow.checks.Preconditions;
+import com.google.common.base.Preconditions;
 
 import io.reactivex.Completable;
 import io.reactivex.disposables.CompositeDisposable;

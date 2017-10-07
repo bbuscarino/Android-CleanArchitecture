@@ -1,13 +1,13 @@
-package com.company.app.domain;
+package com.company.app.presentation.model;
 
 import com.google.common.base.Optional;
 
 import org.immutables.value.Value;
 
 
-@DomainStyle
+@ModelStyle
 @Value.Immutable
-public interface AbstractUser {
+public interface AbstractUserModel {
     int userId();
 
     Optional<String> coverUrl();

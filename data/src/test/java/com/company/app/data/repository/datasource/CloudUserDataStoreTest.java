@@ -1,31 +1,27 @@
-/**
- * Copyright (C) 2015 Fernando Cejas Open Source Project
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.company.app.data.repository.datasource;
 
 import com.company.app.data.cache.UserCache;
 import com.company.app.data.entity.UserEntity;
 import com.company.app.data.net.GithubService;
+import com.google.common.collect.Iterables;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.mock.BehaviorDelegate;
+import retrofit2.mock.MockRetrofit;
+import retrofit2.mock.NetworkBehavior;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
@@ -43,37 +39,64 @@ public class CloudUserDataStoreTest {
     private CloudUserDataStore cloudUserDataStore;
     private UserEntity fakeUserEntity;
 
+    private final NetworkBehavior behavior = NetworkBehavior.create();
 
-    @Mock
     private GithubService mockGithubService;
+
     @Mock
     private UserCache mockUserCache;
 
     @Before
     public void setUp() {
-        cloudUserDataStore = new CloudUserDataStore(mockGithubService, mockUserCache);
+        // Create fake entity
         fakeUserEntity = new UserEntity.Builder()
                 .setUserId(FAKE_USER_ID)
                 .setCoverUrl(FAKE_USER_COVER_URL)
                 .setDescription(FAKE_USER_DESCRIPTION)
                 .setEmail(FAKE_USER_EMAIL)
                 .setFollowers(FAKE_USER_FOLLOWERS)
-                .setFullname(FAKE_USER_FULL_NAME)
+                .setFullName(FAKE_USER_FULL_NAME)
                 .create();
+        // Mock Retrofit
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://raw.githubusercontent.com/android10/Sample-Data/master/Android-CleanArchitecture/").build();
+        MockRetrofit mockRetrofit = new MockRetrofit.Builder(retrofit)
+                .networkBehavior(behavior).build();
+        final BehaviorDelegate<GithubService> delegate = mockRetrofit.create(GithubService.class);
+        mockGithubService = new GithubServiceMock(delegate, fakeUserEntity);
+
+        cloudUserDataStore = new CloudUserDataStore(mockGithubService, mockUserCache);
+
     }
 
     @Test
     public void testGetUserEntityListFromApi() {
-        cloudUserDataStore.userEntityList();
-        verify(mockGithubService).listUsers();
+        cloudUserDataStore.userEntityList().blockingGet();
     }
 
     @Test
-    public void testGetUserEntityDetailsFromApi() throws IOException {
-        given(mockGithubService.getUserEntityById(FAKE_USER_ID).execute().body()).willReturn(fakeUserEntity);
+    public void testGetUserEntityDetailsFromApi() {
+        cloudUserDataStore.userEntityDetails(FAKE_USER_ID).blockingGet();
+    }
 
-        cloudUserDataStore.userEntityDetails(FAKE_USER_ID);
 
-        verify(mockGithubService).getUserEntityById(FAKE_USER_ID);
+    private class GithubServiceMock implements GithubService {
+        private final BehaviorDelegate<GithubService> delegate;
+        private final UserEntity user;
+
+        GithubServiceMock(BehaviorDelegate<GithubService> delegate, UserEntity testUser) {
+            this.delegate = delegate;
+            this.user = testUser;
+        }
+
+        @Override
+        public Call<List<UserEntity>> listUsers() {
+            return delegate.returningResponse(Collections.singletonList(user)).listUsers();
+        }
+
+        @Override
+        public Call<UserEntity> getUserEntityById(int id) {
+            return delegate.returningResponse(user).getUserEntityById(id);
+        }
     }
 }
